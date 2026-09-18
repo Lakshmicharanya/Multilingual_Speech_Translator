@@ -1,0 +1,261 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="translator-container">
+
+    <div class="hero-section">
+
+        <div class="hero-badge">
+            ✨ AI-Powered Language Experience
+        </div>
+
+        <h1>
+            Speak.
+            <span>Translate.</span>
+            Connect.
+        </h1>
+
+        <p>
+            Speak in your language and hear the translation
+            in another language instantly.
+        </p>
+
+    </div>
+
+
+    <div class="translator-card">
+
+        <div class="language-row">
+
+            <div class="language-box">
+
+                <label>From</label>
+
+                <select id="sourceLanguage">
+
+                    <option value="auto">
+                        Auto Detect
+                    </option>
+
+                    {% for name, code in languages.items() %}
+
+                    <option value="{{ code }}">
+                        {{ name }}
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <button class="swap-button"
+                    onclick="swapLanguages()">
+
+                ⇄
+
+            </button>
+
+
+            <div class="language-box">
+
+                <label>Translate To</label>
+
+                <select id="targetLanguage">
+
+                    {% for name, code in languages.items() %}
+
+                    <option value="{{ code }}"
+                        {% if code == "en" %}
+                        selected
+                        {% endif %}>
+
+                        {{ name }}
+
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <div class="input-output-grid">
+
+
+            <div class="text-panel">
+
+                <div class="panel-header">
+
+                    <span>
+                        Your Speech
+                    </span>
+
+                    <span id="recordingStatus"
+                          class="status">
+                        Ready
+                    </span>
+
+                </div>
+
+
+                <textarea
+                    id="inputText"
+                    placeholder="Your spoken words will appear here..."
+                ></textarea>
+
+
+                <div class="voice-area">
+
+                    <button id="recordButton"
+                            class="record-button"
+                            onclick="startRecording()">
+
+                        <span class="mic-icon">
+                            🎤
+                        </span>
+
+                        <span id="recordText">
+                            Start Speaking
+                        </span>
+
+                    </button>
+
+                </div>
+
+
+                <div class="panel-actions">
+
+                    <button
+                        class="small-button"
+                        onclick="clearInput()">
+
+                        Clear
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="text-panel output-panel">
+
+                <div class="panel-header">
+
+                    <span>
+                        Translation
+                    </span>
+
+                    <span class="translated-label">
+                        ✓ Translated
+                    </span>
+
+                </div>
+
+
+                <textarea
+                    id="outputText"
+                    placeholder="Your translation will appear here..."
+                    readonly
+                ></textarea>
+
+
+                <div class="voice-area">
+
+                    <button
+                        id="translateButton"
+                        class="translate-button"
+                        onclick="translateText()">
+
+                        🌍 Translate
+
+                    </button>
+
+                    <button
+                        id="speakButton"
+                        class="speak-button"
+                        onclick="speakTranslation()"
+                        disabled>
+
+                        🔊 Play Translation
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="processing-area"
+             id="processingArea">
+
+            <div class="loader"></div>
+
+            <span id="processingText">
+                Processing...
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="feature-section">
+
+        <div class="feature-card">
+
+            <div class="feature-icon blue-icon">
+                🎤
+            </div>
+
+            <h3>Voice Input</h3>
+
+            <p>
+                Speak naturally using your microphone.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon green-icon">
+                🌍
+            </div>
+
+            <h3>Multiple Languages</h3>
+
+            <p>
+                Translate between many popular languages.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon purple-icon">
+                🔊
+            </div>
+
+            <h3>Natural Speech</h3>
+
+            <p>
+                Listen to your translated text.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="history-container">
+
+    <div class="history-heading">
+
+        <div>
+
+            <span class="hero-badge">
+                🕘 Your Activity
+            </span>
+
+            <h1>
+                Translation History
+            </h1>
+
+            <p>
+                View your previous translations.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    {% if records %}
+
+    <div class="history-list">
+
+        {% for record in records %}
+
+        <div class="history-card">
+
+            <div class="history-top">
+
+                <span>
+                    {{ record.created_at }}
+                </span>
+
+                <form
+                    method="POST"
+                    action="{{ url_for('delete_history', history_id=record.id) }}">
+
+                    <button
+                        class="delete-button"
+                        type="submit">
+
+                        Delete
+
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <div class="history-content">
+
+                <div class="history-column">
+
+                    <small>
+                        Original
+                    </small>
+
+                    <p>
+                        {{ record.original_text }}
+                    </p>
+
+                </div>
+
+
+                <div class="arrow">
+                    →
+                </div>
+
+
+                <div class="history-column">
+
+                    <small>
+                        Translation
+                    </small>
+
+                    <p>
+                        {{ record.translated_text }}
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="history-languages">
+
+                {{ record.source_language }}
+
+                →
+
+                {{ record.target_language }}
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-history">
+
+        <div>
+            🌍
+        </div>
+
+        <h2>
+            No translations yet
+        </h2>
+
+        <p>
+            Start speaking to create your first translation.
+        </p>
+
+        <a
+            href="{{ url_for('index') }}"
+            class="main-button link-button">
+
+            Start Translating
+
+        </a>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
